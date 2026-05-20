@@ -3,33 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dictionary Search</title>
+    <title>GitHub Repo Search</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    
+
     <nav class="NavBar">
         <a href="index.html" class="NavLink">Home</a>
-        <a href="dictionarySearch.html" class="NavLink active">Dictionary Search</a>
-        <a href="gitRepoSearch.html" class="NavLink">Repo Search</a>
+        <a href="dictionarySearch.html" class="NavLink">Dictionary Search</a>
+        <a href="gitRepoSearch.html" class="NavLink active">Repo Search</a>
     </nav>
-
+    
     <div>
-        <h1 class="PageTitle">Dictionary Search</h1>
+        <h1 class="PageTitle">GitHub Repo Search</h1>
     </div>
 
-    <div class="AppContainer">
+    <div class="AppContainerWide">
         <div class="SearchContainer">
-            <label for="toSearch" class="InputLable">insert a word to search:</label>
+            <label for="toSearch" class="InputLable">insert a username to search:</label>
             <input type="text" id="toSearch" class="InputField">
             <button type="button" onclick="
                 let word = document.getElementById('toSearch').value;
                 search(word);
             ">Search</button>
         </div>
-        <div id="resultContainer" class="InfoContainer"></div>
+        
+        <div id="ErrorContainer" class="ErrorContainer"></div>
+
+        <div id="resultContainer" class="RepoGrid">
+            
+        </div>
     </div>
 
-    <script src="dictionary.js"></script>
+    <script src="repo.js"></script>
 </body>
 </html>

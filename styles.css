@@ -1,0 +1,280 @@
+body {
+    background-color: #edeef0;
+    color: #364051;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0;
+    padding-bottom: 40px;
+    font-family: system-ui, -apple-system, sans-serif;
+    width: 100%;
+}
+
+.AppContainer {
+    width: 100%;
+    max-width: 600px;
+    padding: 0 16px;
+    box-sizing: border-box;
+}
+
+.AppContainerWide {
+    width: 100%;
+    max-width: 900px;
+    padding: 0 16px;
+    box-sizing: border-box;
+}
+
+.NavBar {
+    width: 100%;
+    background-color: white;
+    padding: 16px 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    display: flex;
+    justify-content: center;
+    gap: 32px;
+    margin-bottom: 40px;
+}
+
+.NavLink {
+    text-decoration: none;
+    color: #485463;
+    font-weight: 600;
+    font-size: 16px;
+    transition: color 0.2s;
+    padding-bottom: 4px;
+}
+
+.NavLink:hover {
+    color: #5a0d8a;
+}
+
+.NavLink.active {
+    color: #5a0d8a;
+    border-bottom: 2px solid #5a0d8a;
+}
+
+.PageTitle {
+    font-size: 2.5rem;
+    margin-top: 0;
+    margin-bottom: 20px;
+    color: #5a0d8a;
+    padding-bottom: 10px;
+    text-transform: capitalize;
+}
+
+.WordTitle {
+    font-size: 2rem;
+    margin-top: 0;
+    margin-bottom: 20px;
+    color: #101727;
+    border-bottom: 2px solid #f3f4f6;
+    padding-bottom: 10px;
+    text-transform: capitalize;
+}
+
+h2 {
+    margin-top: 0;
+    color: #5a0d8a;
+    border-bottom: 2px solid #f3f4f6;
+    padding-bottom: 10px;
+}
+
+.InfoContainer h3 {
+    margin-top: 0;
+    color: #101727;
+    border-bottom: 2px solid #f3f4f6;
+    padding-bottom: 10px;
+}
+
+h3 {
+    border-bottom: 2px solid #f3f4f6;
+}
+
+p {
+    line-height: 1.6;
+    font-size: 1.05rem;
+    margin-bottom: 0;
+}
+
+.SearchContainer {
+    background-color: white;
+    padding: 24px;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.InputLable {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 8px;
+    font-size: 14px;
+    color: #485463;
+}
+
+.InputField {
+    width: 100%;
+    padding: 12px 16px;
+    font-size: 16px;
+    border: 1px solid #dce1e9;
+    border-radius: 8px;
+    box-sizing: border-box;
+    margin-bottom: 16px;
+    transition: border-color 0.2s;
+}
+
+button {
+    width: 100%;
+    background-color: #5a0d8a;
+    color: white;
+    border: none;
+    padding: 14px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    -webkit-tap-highlight-color: transparent;
+}
+
+button:hover {
+    background-color: #6b0fa4;
+}
+
+.InfoContainer {
+    background-color: white;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    margin-top: 16px;
+}
+
+.InfoContainer:empty {
+    display: none;
+}
+
+.InfoCard {
+    background-color: #fcfeff;
+    border: 1px solid #d9dbdf;
+    border-radius: 8px;
+    padding: 16px 20px; 
+    margin-bottom: 16px;
+    box-shadow: 0 2px 5px #5a0d8a;
+}
+
+ul {
+    padding-left: 20px;
+}
+
+li {
+    margin-bottom: 8px;
+}
+
+.RepoGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+    margin-top: 24px;
+    width: 100%;
+}
+
+.RepoCard {
+    background-color: white;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    border: 1px solid #dce1e9;
+    display: flex;
+    flex-direction: column;
+    aspect-ratio: 1 / 1; 
+    box-sizing: border-box;
+}
+
+.RepoName {
+    margin: 0 0 4px 0;
+    font-size: 1.25rem;
+    color: #5a0d8a;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.RepoOwner {
+    font-size: 0.85rem;
+    color: #6b7280;
+    margin-bottom: 12px;
+    font-weight: 600;
+    border-bottom: 1px solid #f3f4f6;
+    padding-bottom: 12px;
+}
+
+.RepoDesc {
+    margin: 0;
+    font-size: 0.95rem;
+    color: #485463;
+    line-height: 1.5;
+    overflow-y: auto; 
+    flex-grow: 1; 
+}
+
+.RepoDesc::-webkit-scrollbar {
+    width: 6px;
+}
+
+.RepoDesc::-webkit-scrollbar-thumb {
+    background-color: #dce1e9;
+    border-radius: 4px;
+}
+
+.Loading {
+    color: #5a0d8a;
+    font-weight: 600;
+    text-align: center;
+    margin: 10px 0;
+}
+
+.ErrorContainer {
+    background-color: white;
+    padding: 24px;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    margin-top: 10px;
+}
+
+.ErrorContainer:empty {
+    display: none;
+}
+
+.ErrorTitle {
+    color: red;
+    margin-top: 0;
+    border-bottom: none !important;
+}
+
+.ErrorText {
+    color: #6b7280;
+    margin-bottom: 0;
+}
+
+@media (max-width: 600px) {
+    .NavBar {
+        gap: 16px;
+        padding: 16px;
+        flex-wrap: wrap;
+        box-sizing: border-box;
+    }
+    
+    .NavLink {
+        font-size: 14px;
+    }
+
+    .PageTitle {
+        font-size: 1.8rem;
+        text-align: center;
+        padding: 0 16px;
+        margin-bottom: 16px;
+    }
+
+    .WordTitle{
+        font-size: 1.3rem;
+    }
+}
