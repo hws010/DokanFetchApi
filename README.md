@@ -48,3 +48,16 @@ After making both pages and creating the index i added the nav bar for each page
 for the general layout i styled the body to use flex display and center all elements in the middle and stack all elements vertically. for the theme I went with bright colors with a purple touch and some shadows. and made sure that the pages would look clean on a phone by checking the screen pixel size and adjusting some elements accordingly. check containers if they are empty to make the invisible until they are filled with data. 
 ### Page Image:
 ![Index](./images/Index.png)
+
+
+## SQL Schema For Storing Searches
+```
+CREATE TABLE saved_searches (
+    id SERIAL PRIMARY KEY,
+    user_id INT NOT NULL,
+    search_query VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id)
+);
+```
+In this table there would be the "id" of the Search which is the main identifier. and a "user_id" that must be set so each search would have an owner. and then the search string is stored in "search_query" and the time of creation as "created_at" and then we are connecting the "user_id" which is a foreign key with the "id" from the users table.
