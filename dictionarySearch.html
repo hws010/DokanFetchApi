@@ -1,72 +1,171 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
+<html lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dictionary Search</title>
-    
+    <title>Document</title>
     <style>
-        .search-element {
+        body {
+            background-color: #edeef0;
+            color: #364051;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px 16px;
+            margin: 0;
+            font-family: system-ui, -apple-system, sans-serif;
+        }
+        .AppContainer{
+            width: 100%;
+            max-width: 600px;
+        }
+        .SearchContainer{
+            background-color: white;
+            padding: 24px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+        .InputLable{
             display: block;
-            margin-bottom: 5px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 14px;
+            color: #485463;
+        }
+        .InputField{
+            width: 100%;
+            padding: 12px 16px;
+            font-size: 16px;
+            border: 1px solid #dce1e9;
+            border-radius: 8px;
+            box-sizing: border-box;
+            margin-bottom: 16px;
+            transition: border-color 0.2s;
+        }
+        button {
+            width: 100%;
+            background-color: #5a0d8a;
+            color: white;
+            border: none;
+            padding: 14px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            -webkit-tap-highlight-color: transparent;
+        }
+        button:hover {
+            background-color: #6b0fa4;
         }
 
-        .result-container {
-            background-color: #9b9b9bd5;
-            border-radius: 6px;
+        .Loading {
+            color: #5a0d8a;
+            font-weight: 600;
+            text-align: center;
+            margin: 10px 0;
+        }
+        .ErrorTitle {
+            color: red;
+            margin-top: 0;
+        }
+        .ErrorText {
+            color: #6b7280;
+            margin-bottom: 0;
+        }
+        
+        .InfoContainer{
+            background-color: white;
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            margin-top: 16px;
+        }
+        .InfoContainer:empty {
+            display: none;
+        }
+        .InfoCard {
+            background-color: #fcfeff;
+            border: 1px solid #d9dbdf;
+            border-radius: 8px;
+            padding: 16px 20px; 
+            margin-bottom: 16px;
+            box-shadow: 0 2px 5px #5a0d8a;
+        }
+        ul {
             padding-left: 20px;
-            padding-bottom: 20px;
-            padding-right: 20px;
-            margin-top: 20px; 
         }
-
-        .meaning-card {
-            background-color: #f0eeeed5; 
-            border-radius: 6px; 
-            padding-bottom: 3px; 
-            padding-left: 10px;
-            margin-bottom: 15px; 
+        li {
+            margin-bottom: 8px;
+        }
+        .WordTitle{
+            font-size: 2.5rem;
+            margin-top: 0;
+            margin-bottom: 20px;
+            color: #101727;
+            border-bottom: 2px solid #f3f4f6;
+            padding-bottom: 10px;
+            text-transform: capitalize;
         }
     </style>
 </head>
 <body>
     
-    <div>
-        <label for="toSearch" class="search-element">Insert a word to search:</label>
-        <input type="text" id="toSearch" class="search-element">
-        <button type="button" onclick="
-            var word = document.getElementById('toSearch').value;
-            search(word);
-        ">Search</button>
+    <div class="AppContainer">
+        <div class="SearchContainer">
+            <label for="toSearch" class="InputLable">insert a word to search:</label>
+            <input type="text" id="toSearch" class="InputField">
+            <button type="button" onclick="
+                let word = document.getElementById('toSearch').value;
+                search(word);
+            ">Search</button>
+        </div>
+        <div id="resultContainer" class="InfoContainer"></div>
     </div>
 
-    <div id="resultContainer" class="result-container"> </div>
 
     <script>
         function search(word){
-            var url = 'https://api.dictionaryapi.dev/api/v2/entries/en/' + word; 
+            if(word == ""){
+                const resultContainer = document.getElementById("resultContainer");
+                let HtmlElemnts;
+
+                HtmlElemnts = `<h1>You need to insert a word!!</h1>`
+                resultContainer.innerHTML = HtmlElemnts;
+                return;
+            }
+            let url = 'https://api.dictionaryapi.dev/api/v2/entries/en/' + word;
             getData(url);
         }
-
-        const resultContainer = document.getElementById("resultContainer");
-        let HtmlElemnts;
+        
 
         async function getData(url) {
             console.log("the url is sent and it is: " + url)
+            const resultContainer = document.getElementById("resultContainer");
+            let HtmlElemnts;
+
+            resultContainer.innerHTML = `<p class="Loading">Searching...</p>`;
+
             try {
                 const response = await fetch(url);
+                
+                if (response.status === 404) {
+                    throw new Error("NOT_FOUND");
+                }
                 if (!response.ok) {
-                    throw new Error(`Response status: ${response.status}`);
+                    throw new Error("SERVER_PROBLEM");
                 }
 
+
                 const result = await response.json();
-                HtmlElemnts = `<h3>The word is ${result[0].word}</h3>`;
+                HtmlElemnts = `<h3 class="WordTitle">The word is ${result[0].word}</h3>`;
+                
                 
                 const meanings = result[0].meanings;
 
                 meanings.forEach(element => {
-                    HtmlElemnts += `<div class="meaning-card">`
-                    HtmlElemnts += `<h3>The word is: {${element.partOfSpeech}}</h3>`
+                    HtmlElemnts += `<div class='InfoCard'>`
+                    HtmlElemnts += `<h3>Part Of Speech: {${element.partOfSpeech}}</h3>`
 
                     HtmlElemnts += `<ul>`
                         element.definitions.forEach(miniElement => {
@@ -74,21 +173,34 @@
                             
                             if(miniElement.example != undefined){
                                 HtmlElemnts += `<ul><li><i>example: ${miniElement.example}</i></li></ul>`
+                                HtmlElemnts += `<br>`
                             }
-                            HtmlElemnts += `<br>`
 
                         });
+
                     HtmlElemnts += `</ul>`
+
                     HtmlElemnts += `</div>`
                 });
+
+                resultContainer.innerHTML = HtmlElemnts;
                 
             } catch (error) {
                 console.error(error.message);
-                HtmlElemnts = `<h1>word not found!!</h1>`
+                if (error.message === "NOT_FOUND") {
+                    resultContainer.innerHTML = `
+                        <h3 class="ErrorTitle">Word Not Found</h3>
+                        <p class="ErrorText">The word you are looking for doesnt exist!</p>
+                    `;
+                } else {
+                    resultContainer.innerHTML = `
+                        <h3 class="ErrorTitle">No Connection</h3>
+                        <p class="ErrorText">Try again later.</p>
+                    `;
+                }
             }
-            resultContainer.innerHTML = HtmlElemnts;
         }
     </script>
 
-</body>
-</html>
+
+</body></html>
